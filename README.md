@@ -8,9 +8,13 @@
 
 The repository is no longer maintained, however, the SMB protocol implementation does in fact work to *some* degree.
 
-Modifications were made to create "fake" virtual folders from A-Z for searching, a virtual folder named "!SEARCH" which submits the query to a torrent search engine, and a "!SPACE" folder which can be used to add a space to the query. Once the "!SEARCH" folder is opened, the SMB server makes a query to [snowfl](https://snowfl.com/), which is a website that aggregates torrent engines into a digestible result. The searching is done in "lib/backends/torrent/snowfl.js" and uses Selenium, as a proof of concept.
+An additional SPI backend was made to create "fake" virtual folders from A-Z for searching, a virtual folder named "!SEARCH" which submits the query to a torrent search engine, and a "!SPACE" folder which can be used to add a space to the query. Once the "!SEARCH" folder is opened, the SMB server makes a query to [snowfl](https://snowfl.com/), which is a website that aggregates torrent engines into a digestible result. The searching is done in "lib/backends/torrent/snowfl.js" and uses Selenium, as a proof of concept.
 
 The SMB server then adds the torrent to WebTorrent where it is streamed on demand in the order that Kodi demands it, making things like seeking and multiple episodes much more easily supported. The SPI backend forces WebTorrent to drop its selection of priority pieces when another file is selected, making the next file much more readily available.
+
+The full SMB server repository was included as later on internal functions related to `lib/smbfile.js` will need to be changed so that the alphabetical searching menus do not take up all the memory of the computer running the SMB server. As a result, it will not work with the Windows Explorer very well and will probably crash that within minutes, if not at least make it unbearably slow to live with.
+
+The code also needs excessive refactoring as a lot of it is a quick implementation using string replacements and split(), instead of separating the SMB paths and walking the resultant array.
 
 ![](kodi.gif)
 

@@ -1,8 +1,24 @@
+# Torrent SPI for adobe/node-smb-server
+
+**:warning: This code was quickly hacked together on top of an unmaintained implementation of the SMB protocol.**
+
+## Overview
+
+**torrent-smb-server** provides an additional SPI backend to the SMB server previously [maintained by Adobe under this repository](https://github.com/adobe/node-smb-server).
+
+The repository is no longer maintained, however, the SMB protocol implementation does in fact work to *some* degree.
+
+Modifications were made to create "fake" virtual folders from A-Z for searching, a virtual folder named "!SEARCH" which submits the query to a torrent search engine, and a "!SPACE" folder which can be used to add a space to the query. Once the "!SEARCH" folder is opened, the SMB server makes a query to [snowfl](https://snowfl.com/), which is a website that aggregates torrent engines into a digestible result. The searching is done in "lib/backends/torrent/snowfl.js" and uses Selenium, as a proof of concept.
+
+The SMB server then adds the torrent to WebTorrent where it is streamed on demand in the order that Kodi demands it, making things like seeking and multiple episodes much more easily supported. The SPI backend forces WebTorrent to drop its selection of priority pieces when another file is selected, making the next file much more readily available.
+
+![](kodi.gif)
+
 # SMB Server for Node.js
 
-**:warning: This repository is no longer actively maintained.**
+**:warning: The official repository for the SMB server component is no longer actively maintained.**
 
-## Overwiew
+## Overview
 
 **node-smb-server** is an open-source JavaScript implementation of the [SMB/CIFS](https://en.wikipedia.org/wiki/Server_Message_Block#SMB_/_CIFS_/_SMB1) file sharing protocol.
 

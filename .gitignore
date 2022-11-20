@@ -2,6 +2,11 @@ smbroot/
 smbrqroot/
 smbrqwork/
 
+# torrent spi
+dls/
+cache.json
+geckodriver
+
 # ide files
 .cproject
 .project
